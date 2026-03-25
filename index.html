@@ -3,91 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEE MP Partners Forum — Card Draw</title>
+<title>WEE MP Partners’ Forum — Card Draw</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--teal:#1A6B6B;--teal-dark:#0f4040;--teal-light:#e8f4f4;--amber:#B85C00;--amber-light:#fff3e0;--ink:#1a1a1a;--muted:#6b6b6b;--paper:#faf8f5;--white:#ffffff;--shadow:0 8px 40px rgba(26,107,107,.13),0 2px 8px rgba(0,0,0,.06);--shadow-h:0 20px 60px rgba(26,107,107,.2),0 4px 16px rgba(0,0,0,.08);--r:16px}
+:root{--teal:#1A6B6B;--tealdk:#0f4040;--teall:#e8f4f4;--amber:#B85C00;--amberl:#fff3e0;--ink:#1a1a1a;--muted:#6b6b6b;--paper:#faf8f5;--wh:#ffffff;--sh:0 8px 40px rgba(26,107,107,.13),0 2px 8px rgba(0,0,0,.06);--shh:0 20px 60px rgba(26,107,107,.2),0 4px 16px rgba(0,0,0,.08);--r:16px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
-header{padding:16px 40px;border-bottom:1px solid rgba(26,107,107,.12);display:flex;align-items:center;gap:16px;background:var(--white);position:sticky;top:0;z-index:100}
-.hmark{width:36px;height:36px;background:var(--teal);border-radius:8px;flex-shrink:0;display:grid;place-items:center;cursor:pointer;transition:background .15s}
-.hmark:hover{background:var(--teal-dark)}
-.hmark svg{width:20px;height:20px;fill:white}
-.htxt h1{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--teal-dark);line-height:1.2}
-.htxt p{font-size:.7rem;color:var(--muted);font-weight:300;margin-top:2px}
+header{padding:18px 32px;border-bottom:1px solid rgba(26,107,107,.12);display:flex;align-items:center;gap:14px;background:var(--wh);position:sticky;top:0;z-index:100}
+.hmark{width:34px;height:34px;background:var(--teal);border-radius:8px;flex-shrink:0;display:grid;place-items:center;cursor:pointer}
+.hmark svg{width:18px;height:18px;fill:white}
+.htxt h1{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--tealdk);line-height:1.2}
+.htxt p{font-size:.72rem;color:var(--muted);font-weight:300;margin-top:1px}
 .hright{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-/* Timer */
-.timer{display:none;align-items:center;gap:7px;background:var(--teal-light);border:1.5px solid rgba(26,107,107,.2);border-radius:24px;padding:6px 14px;cursor:pointer;user-select:none;transition:background .2s,border-color .2s}
-.timer:hover{background:#d0eaea}
-.timer.warn{background:#fff3e0;border-color:rgba(184,92,0,.4)}
-.timer.urg{background:#ffeaea;border-color:rgba(180,30,30,.4);animation:tp 1.2s infinite}
-@keyframes tp{0%,100%{opacity:1}50%{opacity:.6}}
-.ticon{font-size:.88rem}
-.tdisp{font-size:.88rem;font-weight:500;font-variant-numeric:tabular-nums;color:var(--teal);min-width:46px}
+.cpill{background:var(--teall);color:var(--teal);font-size:.72rem;font-weight:500;padding:5px 11px;border-radius:20px;display:none}
+.timer{display:none;align-items:center;gap:7px;background:var(--teall);border:1.5px solid rgba(26,107,107,.2);border-radius:24px;padding:6px 14px;cursor:pointer;transition:background .2s}
+.timer:hover{background:#d4ecec}
+.timer.warn{background:#fff3e0;border-color:rgba(184,92,0,.3)}
+.timer.urg{background:#fff0f0;border-color:rgba(180,0,0,.3);animation:pulse 1s infinite}
+.ticon{font-size:.85rem}
+.tdisp{font-size:.9rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--teal);letter-spacing:.03em;min-width:52px}
 .timer.warn .tdisp{color:var(--amber)}
-.timer.urg .tdisp{color:#b41e1e}
-.thint{font-size:.63rem;color:var(--muted)}
-.cpill{background:var(--teal-light);color:var(--teal);font-size:.72rem;font-weight:500;padding:5px 12px;border-radius:20px;display:none}
+.timer.urg .tdisp{color:#b00000}
+.thint{font-size:.62rem;color:var(--muted)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 .rbtn{background:none;border:1.5px solid rgba(26,107,107,.25);color:var(--teal);font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;display:none}
-.rbtn:hover{background:var(--teal-light);border-color:var(--teal)}
-/* Main */
-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px 64px}
+.rbtn:hover{background:var(--teall);border-color:var(--teal)}
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:48px 24px 80px}
 .screen{display:none;width:100%;max-width:740px}
-.screen.active{display:block;animation:fu .3s ease}
-@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.screen.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .slabel{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.stitle{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.8vw,2.1rem);font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:8px}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(1.55rem,4vw,2.1rem);font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:6px}
 .ssub{font-size:.88rem;color:var(--muted);font-weight:300;margin-bottom:32px;line-height:1.55}
-/* Nav buttons — prominent */
-.navrow{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
-.nbtn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .18s ease;border:2px solid transparent}
-.nhome{background:var(--teal);color:#fff;box-shadow:0 3px 12px rgba(26,107,107,.25)}
-.nhome:hover{background:var(--teal-dark);box-shadow:0 6px 20px rgba(26,107,107,.35);transform:translateY(-1px)}
-.nback{background:var(--white);border-color:rgba(26,107,107,.25);color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.nback:hover{background:var(--teal-light);border-color:var(--teal);box-shadow:0 4px 14px rgba(26,107,107,.12);transform:translateY(-1px)}
-/* Option cards */
-.ogrid{display:grid;gap:16px}
+.ogrid{display:grid;gap:14px}
 .o2{grid-template-columns:1fr 1fr}
 .o1{grid-template-columns:1fr}
-@media(max-width:540px){.o2{grid-template-columns:1fr}}
-.ocard{background:var(--white);border:2px solid transparent;border-radius:var(--r);padding:22px 26px;cursor:pointer;transition:all .2s ease;box-shadow:0 2px 12px rgba(0,0,0,.06);text-align:left}
-.ocard:hover{border-color:var(--teal);box-shadow:var(--shadow-h);transform:translateY(-2px)}
-.ocard.xhausted{opacity:.4;pointer-events:none}
-.oicon{width:40px;height:40px;border-radius:10px;background:var(--teal-light);display:grid;place-items:center;margin-bottom:12px;font-size:1.1rem}
-.otitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:4px}
-.odesc{font-size:.79rem;color:var(--muted);line-height:1.5;font-weight:300}
-.ocnt{margin-top:10px;font-size:.71rem;font-weight:500;color:var(--teal);background:var(--teal-light);display:inline-block;padding:2px 8px;border-radius:10px}
-/* Draw */
+@media(max-width:520px){.o2{grid-template-columns:1fr}}
+.ocard{background:var(--wh);border:2px solid transparent;border-radius:var(--r);padding:22px 26px;cursor:pointer;transition:all .2s ease;box-shadow:0 2px 10px rgba(0,0,0,.05);text-align:left}
+.ocard:hover{border-color:var(--teal);box-shadow:var(--shh);transform:translateY(-2px)}
+.oicon{width:38px;height:38px;border-radius:9px;background:var(--teall);display:grid;place-items:center;margin-bottom:12px;font-size:1rem}
+.otitle{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.odesc{font-size:.78rem;color:var(--muted);line-height:1.5;font-weight:300}
+.ocnt{margin-top:9px;font-size:.7rem;font-weight:500;color:var(--teal);background:var(--teall);display:inline-block;padding:2px 8px;border-radius:10px}
+.xhausted{opacity:.4;pointer-events:none}
+.navrow{display:flex;align-items:center;gap:10px;margin-bottom:28px;flex-wrap:wrap}
+.nbtn{display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:500;color:var(--teal);background:var(--wh);border:2px solid rgba(26,107,107,.3);border-radius:28px;padding:10px 22px;cursor:pointer;transition:all .18s;white-space:nowrap}
+.nbtn:hover{background:var(--teall);border-color:var(--teal);transform:translateY(-1px)}
 .darea{text-align:center}
-.dbtn{background:var(--teal);color:white;font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:500;padding:18px 48px;border:none;border-radius:50px;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 20px rgba(26,107,107,.3);display:inline-flex;align-items:center;gap:10px;margin-bottom:36px}
-.dbtn:hover{background:var(--teal-dark);box-shadow:0 8px 28px rgba(26,107,107,.4);transform:translateY(-1px)}
+.dbtn{background:var(--teal);color:white;font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:500;padding:20px 48px;border:none;border-radius:50px;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 20px rgba(26,107,107,.3);display:inline-flex;align-items:center;gap:10px;margin-bottom:36px}
+.dbtn:hover{background:var(--tealdk);box-shadow:0 8px 28px rgba(26,107,107,.4);transform:translateY(-1px)}
 .dbtn:active{transform:translateY(0)}
 .dbtn:disabled{background:#b0c4c4;box-shadow:none;cursor:not-allowed;transform:none}
-/* Progress */
-.pwrap{height:4px;background:rgba(26,107,107,.1);border-radius:2px;margin-bottom:32px;overflow:hidden;display:none}
-.pfill{height:100%;background:var(--teal);border-radius:2px;transition:width .4s ease}
-/* Question card */
-.qcard{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:36px 40px;text-align:left;animation:cr .38s cubic-bezier(.16,1,.3,1);border-top:4px solid var(--teal)}
+.qcard{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);padding:38px 44px;text-align:left;animation:cardIn .38s cubic-bezier(.16,1,.3,1);border-top:4px solid var(--teal);margin-bottom:24px}
 .qcard.tAD{border-top-color:#8B1A1A}.qcard.tDQ{border-top-color:var(--teal)}.qcard.tIQ{border-top-color:#4A2C7A}.qcard.tGF{border-top-color:#2D3F50}.qcard.tWC{border-top-color:var(--amber)}
-@keyframes cr{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 .badge{display:inline-flex;align-items:center;gap:6px;font-size:.67rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:18px}
-.bAD{background:#fff0f0;color:#8B1A1A}.bDQ{background:var(--teal-light);color:var(--teal)}.bIQ{background:#f3eef9;color:#4A2C7A}.bGF{background:#eef2f5;color:#2D3F50}.bWC{background:var(--amber-light);color:var(--amber)}
-.qtext{font-family:'Playfair Display',serif;font-size:clamp(1.05rem,2.4vw,1.3rem);line-height:1.65;color:var(--ink)}
+.bAD{background:#fff0f0;color:#8B1A1A}.bDQ{background:var(--teall);color:var(--teal)}.bIQ{background:#f3eef9;color:#4A2C7A}.bGF{background:#eef2f5;color:#2D3F50}.bWC{background:var(--amberl);color:var(--amber)}
+.qtext{font-family:'Playfair Display',serif;font-size:clamp(1.08rem,2.4vw,1.3rem);line-height:1.65;color:var(--ink);font-weight:400}
 .qfoot{margin-top:22px;padding-top:18px;border-top:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.qrem{font-size:.74rem;color:var(--muted)}.qrem strong{color:var(--teal)}
-/* All done */
+.qrem{font-size:.74rem;color:var(--muted)}
+.qrem strong{color:var(--teal)}
+.cardnav{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px}
+.pwrap{height:3px;background:rgba(26,107,107,.1);border-radius:2px;margin-bottom:32px;overflow:hidden;display:none}
+.pfill{height:100%;background:var(--teal);border-radius:2px;transition:width .45s ease}
 .done{text-align:center;padding:56px 20px}
 .done-icon{font-size:2.8rem;margin-bottom:14px}
-.done h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:8px}
-.done p{color:var(--muted);font-size:.88rem;margin-bottom:28px}
+.done h2{font-family:'Playfair Display',serif;font-size:1.55rem;margin-bottom:6px}
+.done p{color:var(--muted);font-size:.88rem;margin-bottom:26px}
 footer{text-align:center;padding:18px;font-size:.7rem;color:#bbb;border-top:1px solid rgba(0,0,0,.05)}
-@media(max-width:600px){header{padding:14px 18px}main{padding:28px 14px 48px}.qcard{padding:24px 20px}.nbtn{padding:12px 18px;font-size:.88rem}}
+@media(max-width:600px){header{padding:16px 18px}main{padding:28px 14px 60px}.qcard{padding:26px 22px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="hmark" onclick="goHome()" title="Home">
+  <div class="hmark" id="logoBtn" title="Home">
     <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
   </div>
   <div class="htxt">
@@ -96,28 +86,27 @@ footer{text-align:center;padding:18px;font-size:.7rem;color:#bbb;border-top:1px 
   </div>
   <div class="hright">
     <span class="cpill" id="cpill"></span>
-    <div class="timer" id="timer" onclick="togglePause()" title="Tap to pause / resume">
+    <div class="timer" id="timer" title="Tap to pause / resume">
       <span class="ticon">&#9201;</span>
       <span class="tdisp" id="tdisp">45:00</span>
       <span class="thint" id="thint">tap to pause</span>
     </div>
-    <button class="rbtn" id="rbtn" onclick="resetSession()">&#8635; Reset</button>
+    <button class="rbtn" id="rbtn">&#8635; Reset</button>
   </div>
 </header>
 <main>
-  <!-- Session -->
   <div class="screen active" id="s1">
     <div class="slabel">Step 1 of 3</div>
     <h2 class="stitle">Which session are you drawing for?</h2>
-    <p class="ssub">Questions are drawn randomly without repeating in this browser session. A 45-minute countdown starts when you select a session and resets if you switch.</p>
+    <p class="ssub">Questions drawn randomly, never repeating in this browser session. A 45-minute timer starts when you pick a session and resets if you switch.</p>
     <div class="ogrid o2">
-      <div class="ocard" onclick="selSession('Roundtable')">
+      <div class="ocard" id="btnRT">
         <div class="oicon">&#128309;</div>
         <div class="otitle">Roundtable</div>
         <div class="odesc">Thematic discussions on scalability and replicability</div>
         <div class="ocnt">4 themes &middot; 89 questions</div>
       </div>
-      <div class="ocard" onclick="selSession('What Didn\'t Work')">
+      <div class="ocard" id="btnWDW">
         <div class="oicon">&#128992;</div>
         <div class="otitle">What Didn&rsquo;t Work</div>
         <div class="odesc">Full-group reflection on failure, learning, and honest reckoning</div>
@@ -125,67 +114,241 @@ footer{text-align:center;padding:18px;font-size:.7rem;color:#bbb;border-top:1px 
       </div>
     </div>
   </div>
-  <!-- Theme -->
   <div class="screen" id="s2">
     <div class="navrow">
-      <button class="nbtn nhome" onclick="goHome()">&#127968; Home</button>
+      <button class="nbtn" id="h2">&#127968; Home</button>
     </div>
     <div class="slabel">Step 2 of 3</div>
     <h2 class="stitle">Choose a theme</h2>
     <p class="ssub" id="s2sub"></p>
     <div class="ogrid o1" id="tgrid"></div>
   </div>
-  <!-- Draw -->
   <div class="screen" id="s3">
     <div class="navrow">
-      <button class="nbtn nhome" onclick="goHome()">&#127968; Home</button>
-      <button class="nbtn nback" id="backbtn" onclick="goBack()">&#8592; <span id="backlbl">Themes</span></button>
+      <button class="nbtn" id="h3">&#127968; Home</button>
+      <button class="nbtn" id="b3">&#8592; <span id="blbl">Themes</span></button>
     </div>
     <div class="darea">
       <div class="slabel" id="dlbl"></div>
       <h2 class="stitle" id="dtitle"></h2>
       <p class="ssub" id="dsub"></p>
       <div class="pwrap" id="pwrap"><div class="pfill" id="pfill"></div></div>
-      <button class="dbtn" id="dbtn" onclick="draw()">&#127060; Draw a question</button>
+      <button class="dbtn" id="dbtn">&#127060; Draw a question</button>
       <div id="qa"></div>
     </div>
   </div>
 </main>
 <footer>WEE State Partners&rsquo; Forum &mdash; Madhya Pradesh &middot; Gates Foundation &amp; TQH Consulting &middot; April 2026</footer>
 <script>
+(function(){"use strict";
+var Q=[{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"AGREE / DISAGREE","question":"The primary bottleneck to market linkage in MP is not production quality \u2014 it's the absence of reliable aggregation infrastructure between the FPO and the buyer."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"AGREE / DISAGREE","question":"Viksit MP's push for food processing parks and agri-tech will benefit women producers only if FPOs are deliberately included in state procurement chains from the start \u2014 this will not happen automatically."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"AGREE / DISAGREE","question":"SHG-linked FPOs in MP are fundamentally too small and too fragmented to be serious counterparties for private sector buyers at scale."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"AGREE / DISAGREE","question":"Income from agri-enterprise activities in our programmes is supplementary at best. For most women, it is not, and will not be, their primary income source within the project period. We design as if it will be."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"AGREE / DISAGREE","question":"The gap between what women produce and what buyers will purchase is primarily a quality and consistency problem, not a market access problem."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"Which agri-enterprise model in this room has come closest to closing the gap between what women produce and what a buyer will actually purchase at scale? What made the difference?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"MP is prioritising food processing and value-addition under Viksit MP. Which specific value chains \u2014 based on your ground experience \u2014 are actually viable for women-led enterprises in the next 3\u20135 years? Which ones are being over-hyped?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"From another state you've worked in: one model of agri-market linkage that you believe could work in MP, and one that you know will not \u2014 and why."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"Where exactly does capital get stuck in the agri value chain for your beneficiaries? At input, production, aggregation, or sale?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"By how much, in rupees per month, do women in your programme earn more than comparable women outside it? Do you actually know this number, or are you estimating?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"Viksit MP 2047 identifies food processing, allied agriculture (poultry, goatery, dairy), and eco-tourism as priority growth sectors. Based on what you see on the ground in MP \u2014 which of these is genuinely viable for SHG women in the next five years, and which is wishful thinking?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"Does anyone in this room have intelligence on sectors the MP government is planning to prioritise that are not yet on our radar as a WEE portfolio? Anything from district-level consultation processes, government contacts, or CII engagement you can share?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"DIRECT QUESTION","question":"What is the most reliable indirect marker you use to assess whether women's economic situation is improving \u2014 when income data is too hard to collect cleanly?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"INWARD QUESTION","question":"For your organisation specifically: what is the one quality or certification standard your buyers require that your FPOs consistently cannot meet? What would it take to fix that?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"INWARD QUESTION","question":"What percentage of women in your programme earn meaningfully more from the value chain than they would have from selling to the local mandi? Do you know?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"INWARD QUESTION","question":"Your programme has operated in MP for [X] years. Name one private sector buyer relationship that genuinely worked and explain what made it different from the ones that didn't."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"INWARD QUESTION","question":"For your programme: what is the actual median income gain per woman per month from your agri-enterprise intervention, after accounting for input costs and labour time? How confident are you in that number?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"INWARD QUESTION","question":"Your programme has been running in MP for [X] years. Are women's incomes still dependent on your support structures \u2014 your aggregation, your buyer relationships, your credit? What happens if you exit in 12 months?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"INWARD QUESTION","question":"Name one value chain you have moved away from in MP, or that you would move away from if you could. Why is it not working? What does that tell you about the design of the intervention?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"INWARD QUESTION","question":"Benefit of hindsight: if you redesigned your market linkage strategy from scratch for MP, what would you never do again \u2014 and what would you prioritise that you are currently underinvesting in?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"WILDCARD","question":"If you had \u20b91 crore and had to start a women-led agri-enterprise from scratch in MP tomorrow \u2014 which crop or product, which district, and which model? You have 60 seconds."},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"WILDCARD","question":"Name a competitor or peer organisation (not in this room) doing agri market linkage better than anyone here. What are they doing differently?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"WILDCARD","question":"Name a product made by women in your programme that you genuinely believe could be sold in a supermarket in Indore within three years. What would it take?"},{"session":"Roundtable","theme":"Agri Value Chains & Market Linkage","card_type":"WILDCARD","question":"If a buyer representative from Reliance Retail were sitting at this table right now, what would they say about the women producers in this portfolio \u2014 honestly?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"AGREE / DISAGREE","question":"The working capital problem for SHG-linked enterprises in MP is primarily a credit design problem \u2014 not a creditworthiness problem."},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"AGREE / DISAGREE","question":"NBFCs entering SHG markets in MP are more likely to extract value from women borrowers than to solve the financial sustainability problem for their enterprises."},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"AGREE / DISAGREE","question":"When a woman in an SHG programme takes a loan to invest in her enterprise, we often cannot distinguish whether her income went up because of the loan, despite the loan, or regardless of it. And most of us are not trying hard enough to find out."},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"AGREE / DISAGREE","question":"The Ladli Behna transfer of Rs. 1,500 per month is doing more measurable good for women's economic autonomy in MP than the majority of market linkage interventions in this room."},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"AGREE / DISAGREE","question":"Financial inclusion metrics \u2014 account ownership, loan disbursement, SHG savings \u2014 are the most widely reported and the least meaningful indicators of women's economic empowerment in this portfolio."},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"DIRECT QUESTION","question":"Which financial product \u2014 from any state or country \u2014 do you believe is closest to solving the working capital problem for SHG-linked enterprises? Could it work in MP?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"DIRECT QUESTION","question":"What is the most promising financial inclusion model you've seen operate in tribal or PESA-area blocks in MP or comparable geographies?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"DIRECT QUESTION","question":"SIDBI, NBFC partnerships, CLF-level lending, government revolving funds \u2014 rank these by their realistic potential to solve the working capital gap for women enterprises in MP. Justify your top pick."},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"DIRECT QUESTION","question":"Where in the financial journey do most women in your programmes fall off? What does that tell us about the design of the financial pathway?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"DIRECT QUESTION","question":"Are there financial products that women in your programmes are accessing and using that you did not design for or anticipate? What does that tell you about what they actually need?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"DIRECT QUESTION","question":"What would a useful income measurement framework actually look like for SHG enterprise programmes in MP? What are the two or three indicators you would track if you could track anything?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"DIRECT QUESTION","question":"Has anyone in this room found a way to measure financial stress or vulnerability reduction as a proxy for women's economic empowerment, that is more reliable than income figures? What did you use?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"INWARD QUESTION","question":"For your programme: what is the average time between a woman identifying a business opportunity and accessing capital to act on it? Is that gap getting shorter?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"INWARD QUESTION","question":"Describe a situation where a financial product or credit mechanism you recommended to beneficiaries didn't work as expected. What did you miss in the design?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"INWARD QUESTION","question":"Does your programme have a contingency plan for beneficiaries if the NBFC or financial partner you're working with withdraws?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"INWARD QUESTION","question":"For your programme: of the women who have accessed credit through your intervention, what proportion have used it primarily for enterprise vs. consumption smoothing vs. debt repayment? Do you know? Does it matter?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"INWARD QUESTION","question":"Describe a situation where a financial product or credit mechanism you recommended to beneficiaries created more burden than it relieved. What did you learn from it, and has it changed your programme design?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"INWARD QUESTION","question":"Your programme reports savings rates, loan repayment rates, and credit volumes. If you had to pick one number from your MIS that you believe is actually capturing something real about women's financial lives \u2014 just one \u2014 what is it?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"INWARD QUESTION","question":"Benefit of hindsight: what do you wish your programme had measured from Year 1 that you are now trying to reconstruct? What does the absence of that data cost you in understanding your own impact?"},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"WILDCARD","question":"The Ladli Behna Yojana transfers \u20b91,500/month to married women in MP. Does this help or hurt the financial autonomy and enterprise motivation of women in your programmes? No diplomatic answers."},{"session":"Roundtable","theme":"Financial Inclusion & Working Capital","card_type":"WILDCARD","question":"If you had to bet on one financial behaviour change in women in your programme that you believe will outlast the project by ten years \u2014 what would it be, and why?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"AGREE / DISAGREE","question":"MPSRLM's leadership instability is the single biggest structural barrier to programme continuity in MP \u2014 more than funding, geography, or community readiness."},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"AGREE / DISAGREE","question":"Jeevika's comparative effectiveness is primarily a function of Bihar's better bureaucratic culture, not the programme design \u2014 and therefore it cannot simply be replicated in MP."},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"AGREE / DISAGREE","question":"MPSRLM is capable of taking a proven women's enterprise model to scale in MP, but only if civil society organisations stop doing its job for it and hold it accountable instead."},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"AGREE / DISAGREE","question":"The strongest government department for WEE-relevant work in MP right now is not MPSRLM. There is another department with more institutional coherence and ground presence that this portfolio is almost completely ignoring."},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"DIRECT QUESTION","question":"What does holding MPSRLM accountable look like in practice, not in theory? Give one concrete example from your programme where you did it, or tried to."},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"DIRECT QUESTION","question":"From another state you've worked in: one government partnership model that worked well and that you believe could be adapted for MP. What would need to change?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"DIRECT QUESTION","question":"Viksit MP 2047 emphasises digitisation and smart governance. How is MPSRLM actually using data and digital tools on the ground? Does it help your work or create parallel burden?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"DIRECT QUESTION","question":"Beyond MPSRLM: which other MP government department or institution \u2014 Women and Child Development, Agriculture, Tribal Affairs, MSME, Labour, Horticulture, Forest \u2014 do you think has the most untapped potential for WEE programming? What makes you say that?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"DIRECT QUESTION","question":"Viksit MP 2047 emphasises industrial corridors, MITRA textile parks, and AI-driven cities. Are there any sectors within that government push where you can see a genuine entry point for SHG women \u2014 not just as beneficiaries of welfare schemes, but as economic actors? Or is this a different game entirely?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"DIRECT QUESTION","question":"Is there a policy or scheme announced under Viksit MP 2047 that your programme should be actively engaging with right now but isn't? What is stopping you?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"DIRECT QUESTION","question":"If MPSRLM took one structural decision in the next 12 months that would unlock the most value for the WEE portfolio \u2014 not more schemes, not more targets, but a structural decision \u2014 what would it be?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"INWARD QUESTION","question":"For your programme: what is the clearest example of a government commitment that was made and not kept? How did you handle it? What would you do differently now?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"INWARD QUESTION","question":"Where in the government system does your programme have its strongest relationship? Where is it weakest? Has that changed in the last 12 months?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"INWARD QUESTION","question":"Benefit of hindsight: if you redesigned your government partnership from scratch, what would you never agree to put on paper again?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"INWARD QUESTION","question":"For your programme: what is the most important government commitment you are currently relying on that you are not confident will be honoured? How are you managing that risk?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"INWARD QUESTION","question":"Has your organisation received any direct intelligence \u2014 from district officials, state-level contacts, or CII or industry forums \u2014 about sectors the MP government is planning to prioritise in the next two to three years that are not in the public domain yet? Is there anything this portfolio should be repositioning around?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"INWARD QUESTION","question":"Describe your organisation's most productive relationship with a government official in MP \u2014 not institutionally, but personally. What made it work, and what happened when that person was transferred?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"INWARD QUESTION","question":"Benefit of hindsight: name one thing your organisation agreed to in a government MOU in MP that you regret. What was the cost, and what would you do differently?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"WILDCARD","question":"Name the one government official \u2014 past or present, any level \u2014 who made the biggest positive difference to your programme in MP. What did they do that was exceptional?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"WILDCARD","question":"If MPSRLM did only one thing in the next 12 months, what would unlock the most for women's economic empowerment across the portfolio?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"WILDCARD","question":"Name one MP government scheme \u2014 not NRLM-related \u2014 that women in your programme are actively using and that is genuinely helping them. What does that tell us about where the government is ahead of us?"},{"session":"Roundtable","theme":"Government Partnership & Institutional Accountability","card_type":"WILDCARD","question":"If CM's office asked this room for three recommendations to make Viksit MP 2047 work better for women's economic empowerment specifically \u2014 what would you say? You have 90 seconds each."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"AGREE / DISAGREE","question":"Most WEE programme designs in this room were built on assumptions about women's aspirations that were formed outside tribal communities \u2014 and have never been seriously revisited."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"AGREE / DISAGREE","question":"The socio-cultural norm that women's economic activity should stay within the home is the most underdiscussed barrier to WEE in tribal MP."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"AGREE / DISAGREE","question":"Household conflict that arises as women gain financial independence is a sign of programme success, not programme failure \u2014 and we should design for it, not around it."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"AGREE / DISAGREE","question":"Income is the wrong primary metric for measuring women's economic empowerment in tribal MP. Asset ownership, control over household decisions, and reduced dependence on seasonal migration are more meaningful \u2014 and more achievable \u2014 in the short run."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"AGREE / DISAGREE","question":"PESA provisions in scheduled areas create legal levers for women's economic rights in MP that this portfolio is almost completely failing to use."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"In tribal communities in MP, where has women's economic empowerment been reinforced or enabled by local cultural or social norms \u2014 not just constrained by them? Give a specific example."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"MP's tribal districts have lower literacy, different land tenure systems, and unique PESA rights. Which programme model in this room is genuinely designed for this context \u2014 not just adapted from a plains-based design?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"From another state or country: one WEE model that worked in a high-exclusion, high-tribal-population context that you think has transferable lessons for MP. What made it work?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"Viksit MP 2047 includes livestock, poultry, and forest produce as growth areas. Do these sectors genuinely open opportunity for Scheduled Tribe women \u2014 or do they risk being captured by better-connected groups?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"What does women's economic progress actually look like in a tribal household in MP over five years? What changes, in what order, and how would you know if your programme was causing any of it?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"Which sectors under Viksit MP 2047 \u2014 eco-tourism, forest produce, organic cultivation, livestock, renewable energy installation \u2014 have genuine potential for tribal women as economic actors rather than just scheme beneficiaries? What is your read from the ground?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"What indirect markers of economic empowerment have you found to be more reliable in tribal communities in MP than income measurement? What do they capture that income misses?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"Is there a programme model from a comparable tribal geography \u2014 in Jharkhand, Odisha, Chhattisgarh, or elsewhere \u2014 that you think has generated real income gains for tribal women and that could be adapted for MP? What made it work?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"DIRECT QUESTION","question":"Are there seasonal or cyclical income patterns specific to tribal MP that most programme designs fail to account for? How does ignoring these patterns affect the quality of your impact data?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"INWARD QUESTION","question":"For your programme: what assumption about tribal women's aspirations, mobility, or decision-making power did you start with that you have since had to revise? What changed your mind?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"INWARD QUESTION","question":"Benefit of hindsight: is there a community in your programme geography where you should not have started, or should have exited earlier? What was your threshold for that decision?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"INWARD QUESTION","question":"Describe one socio-cultural reality specific to your programme's geography in MP that has positively surprised you \u2014 something that made your work easier or more effective than you expected."},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"INWARD QUESTION","question":"For your programme in tribal blocks: what is the average time a woman spends per day on programme-related economic activity? Is that time genuinely additional to her existing workload, or has it displaced something else? Do you know?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"INWARD QUESTION","question":"Your MLE framework probably measures income, SHG membership, and loan repayment. What is it not measuring in tribal communities that your field team tells you actually matters? Why isn't it in the framework?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"WILDCARD","question":"If a Scheduled Tribe woman from one of your programme districts were in this room right now, what would she say we are still getting wrong?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"WILDCARD","question":"Name one government scheme \u2014 not NRLM \u2014 that tribal women in your programme are using more effectively than you anticipated. What does that tell us?"},{"session":"Roundtable","theme":"Tribal Belt & Excluded Communities","card_type":"WILDCARD","question":"Name one thing that tribal communities in MP are doing for women's economic resilience that no programme in this room has thought to document or build on."},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"DIRECT QUESTION","question":"Describe a programme component that looked great on paper but failed on the ground in MP. What did you not see coming?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"DIRECT QUESTION","question":"What is the most important lesson this portfolio has generated in the last two years that has not made it into any formal learning document? Why not?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"DIRECT QUESTION","question":"Where in the WEE programme cycle \u2014 design, implementation, monitoring, exit \u2014 is failure most consistently hidden? What would it take to make that visible?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"DIRECT QUESTION","question":"Name one thing you tried in MP that you genuinely believed in, that failed, and that you have not fully processed yet. You don't have to have an answer. Just name it."},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"INWARD QUESTION","question":"For your organisation: what assumption about SHG women's economic behaviour did your programme design make that turned out to be wrong in MP?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"INWARD QUESTION","question":"Benefit of hindsight: if you could undo one decision from your MP programme in the last three years, what would it be?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"INWARD QUESTION","question":"Describe a moment when your team on the ground knew something wasn't working before leadership did. How long did it take to reach a decision? What slowed it down?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"INWARD QUESTION","question":"What is one thing you consistently do not put in your progress reports to Gates Foundation \u2014 not because it's confidential, but because there's no box for it?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"FOR GATES FOUNDATION","question":"What is the most important learning Gates Foundation has had from this MP portfolio that has changed how you think about WEE programming \u2014 anywhere, not just here?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"FOR GATES FOUNDATION","question":"Is there a question about women's economic empowerment in tribal MP that this portfolio has been running for three years and still cannot answer? What is it, and why does that gap persist?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"FOR GATES FOUNDATION","question":"What does Gates Foundation wish it had asked partners to track from the start \u2014 that it didn't? What does the absence of that data cost you now?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"FOR GATES FOUNDATION","question":"From your experience across states: what do you now believe about WEE programme design that you did not believe three years ago?"},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"WILDCARD","question":"What's the most creative excuse anyone in this room has ever given a donor for a target they didn't meet? No names required."},{"session":"What Didn't Work","theme":"What Didn't Work (Full Group)","card_type":"WILDCARD","question":"You have 30 seconds. What is the one thing this room keeps circling around but never actually saying?"},{"session":"What Didn't Work","theme":"Income, Impact & The WEE Question","card_type":"AGREE / DISAGREE","question":"If we are honest about the income evidence across this portfolio in MP, most programmes cannot demonstrate that they have meaningfully increased women's incomes relative to a plausible counterfactual. We report what we measure, and we measure what we can defend."},{"session":"What Didn't Work","theme":"Income, Impact & The WEE Question","card_type":"AGREE / DISAGREE","question":"Women's control over income matters at least as much as the level of income. But in most of our programmes, we measure the level and assume the control."},{"session":"What Didn't Work","theme":"Income, Impact & The WEE Question","card_type":"DIRECT QUESTION","question":"What income threshold would you need to see \u2014 in rupees per month, sustained over how many years \u2014 to say a WEE intervention has genuinely worked?"},{"session":"What Didn't Work","theme":"Income, Impact & The WEE Question","card_type":"DIRECT QUESTION","question":"What indirect marker of women's economic progress have you found to be the most reliable predictor of sustained income growth over time \u2014 something that shows up before the income does?"},{"session":"What Didn't Work","theme":"Income, Impact & The WEE Question","card_type":"DIRECT QUESTION","question":"Is there evidence from this portfolio of women's incomes going up and then reversing after programme support ended? If yes, what does that tell us about what the programme was actually doing?"},{"session":"What Didn't Work","theme":"Income, Impact & The WEE Question","card_type":"INWARD QUESTION","question":"Benefit of hindsight: if you could go back and redesign your measurement approach for women's income from the start, what would you do differently? What data do you wish you had now?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"DIRECT QUESTION","question":"What is the most important question about WEE programme effectiveness in MP that this portfolio has been unable to answer for three years \u2014 and why has it remained unanswerable?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"DIRECT QUESTION","question":"Has anyone in this room run a control group, a quasi-experimental comparison, or any other approach that lets you isolate your programme's contribution to income gains from everything else happening in women's lives? What did you find?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"DIRECT QUESTION","question":"What is the most useful piece of evidence this portfolio has generated about what works for women's economic empowerment in MP? Is it being used? By whom?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"DIRECT QUESTION","question":"If you had to design a simple three-indicator MLE framework for women's economic empowerment in SHG programmes in MP \u2014 one that is cheap to collect, hard to game, and actually meaningful \u2014 what would the three indicators be?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"INWARD QUESTION","question":"For your programme: name one number in your last progress report that you know is directionally right but methodologically shaky. What would it take to make it solid?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"INWARD QUESTION","question":"Has your programme ever changed its design or strategy in response to its own monitoring data \u2014 not because the funder asked, but because the data genuinely told you something you didn't know? Describe it."},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"INWARD QUESTION","question":"What does your field team tell you in informal conversations that is never captured in your MIS? Why does that gap exist, and what would it cost to close it?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"FOR GATES FOUNDATION","question":"What has GF learned from this MP portfolio about how to design MLE requirements that generate genuine learning rather than compliance reporting? Has anything changed in how GF asks for evidence as a result?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"FOR GATES FOUNDATION","question":"Is there a question about women's economic empowerment in tribal or rural MP that GF has been trying to answer through this portfolio and still cannot? What is the question, and what has made it hard to answer?"},{"session":"What Didn't Work","theme":"Monitoring, Learning & Evaluation","card_type":"FOR GATES FOUNDATION","question":"From GF's vantage across multiple states and programmes: what measurement approach to women's economic progress have you seen work best in contexts similar to MP?"},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"AGREE / DISAGREE","question":"The Viksit MP 2047 vision, as currently framed, will primarily benefit women in peri-urban and mainstream rural MP. For tribal and excluded women, the trajectory it sets is not meaningfully different from what already exists."},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"DIRECT QUESTION","question":"The MP government is betting heavily on industrial corridors, MITRA textile parks, PM GatiShakti logistics, and three AI-driven cities. Are there entry points in any of these for women's economic participation that this portfolio should be thinking about \u2014 or is this a completely different ecosystem from the one we operate in?"},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"DIRECT QUESTION","question":"Viksit MP includes renewable energy as a priority. The Ek Bagiya Maa Ke Naam scheme gives women fruit tree plantations. Namo Drone Didi trains women as drone operators. Are any of these opening up new economic activities for SHG women in your geography that you did not anticipate three years ago?"},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"DIRECT QUESTION","question":"Is there a sector the MP government is not currently prioritising but that you believe will become critical for women's employment and enterprise in MP in the next 5\u201310 years \u2014 based on demographic, ecological, or market trends you are seeing on the ground?"},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"INWARD QUESTION","question":"Has your organisation had any direct engagement with MP government planning processes around Viksit MP 2047 \u2014 district consultations, CII forums, NITI Aayog processes, or anything else? What did you learn that is not in the public document?"},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"INWARD QUESTION","question":"Based on your ground experience in MP: name one sector or economic activity that is growing among women in your programme areas that no government vision document mentions and no WEE programme in this room is designing for. What would it take to build on it?"},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"WILDCARD","question":"If this portfolio had to submit a ten-point memo to the MP government tomorrow on what Viksit MP 2047 needs to include to actually work for SHG women \u2014 what is the single most important point? One sentence each, around the table."},{"session":"What Didn't Work","theme":"Viksit MP 2047 \u2014 Sector Intelligence","card_type":"WILDCARD","question":"Name one thing the MP government has done in the last two years \u2014 not in WEE specifically \u2014 that has genuinely improved conditions for women's economic activity in your programme geography. Credit where it's due."},{"session":"What Didn't Work","theme":"Durability \u2014 What Didn't Last","card_type":"DIRECT QUESTION","question":"What is the most common reason that women exit SHG enterprise activities in MP after initial engagement? Is the portfolio addressing that reason, or designing around it?"},{"session":"What Didn't Work","theme":"Durability \u2014 What Didn't Last","card_type":"DIRECT QUESTION","question":"What programme element \u2014 a training, a group structure, a market relationship, a government linkage \u2014 do you believe will outlast your programme in MP by at least five years? What makes you confident?"},{"session":"What Didn't Work","theme":"Durability \u2014 What Didn't Last","card_type":"WILDCARD","question":"Complete this sentence: \u201cThe thing I am most proud of that my programme built in MP is ____. The thing I am least confident will survive without us is ____.\u201d"}];
 
-const Q=[];
-const SK='wee_mp_drawn';
-const TS=2700;
-const TM={'AGREE / DISAGREE':{c:'AD',l:'Agree / Disagree',e:'\u2696\uFE0F'},'DIRECT QUESTION':{c:'DQ',l:'Direct Question',e:'\uD83D\uDCAC'},'INWARD QUESTION':{c:'IQ',l:'Inward Question',e:'\uD83E\udDD0'},'FOR GATES FOUNDATION':{c:'GF',l:'For Gates Foundation',e:'\uD83D\uDD35'},'WILDCARD':{c:'WC',l:'Wildcard',e:'\uD83C\uDCCF'}};
-const THM={'Agri Value Chains & Market Linkage':{i:'\uD83C\uDF3E',d:'Market linkage, FPOs, buyer relationships'},'Financial Inclusion & Working Capital':{i:'\uD83D\uDCB3',d:'Credit design, NBFCs, CLF lending'},'Government Partnership & Institutional Accountability':{i:'\uD83C\uDFDB\uFE0F',d:'MPSRLM, accountability, Viksit MP'},'Tribal Belt & Excluded Communities':{i:'\uD83C\uDF32',d:'Tribal contexts, PESA, exclusion'},"What Didn't Work (Full Group)":{i:'\uD83C\uDCCF',d:'General pool — draw at random'},'Income, Impact & The WEE Question':{i:'\uD83D\uDCCA',d:'Income measurement, evidence, impact'},'Monitoring, Learning & Evaluation':{i:'\uD83D\uDD0D',d:'MLE frameworks, data quality, learning'},'Viksit MP 2047 \u2014 Sector Intelligence':{i:'\uD83D\uDDFA\uFE0F',d:'State plans, sector opportunities, ground intelligence'},"Durability \u2014 What Didn't Last":{i:'\u23F3',d:'Exit, sustainability, what survived'}};
-let curS=null,curT=null,lastType=null,tLeft=TS,tPaused=false,tInt=null,tSess=null;
-function gd(){try{return JSON.parse(sessionStorage.getItem(SK)||'{}')};catch{return{}}}
-function sd(d){sessionStorage.setItem(SK,JSON.stringify(d))}
-function md(s,t,i){const d=gd(),k=s+'||'+t;if(!d[k])d[k]=[];if(!d[k].includes(i))d[k].push(i);sd(d)}
-function gdf(s,t){return(gd()[s+'||'+t])||[]}
-function qf(s,t){return Q.filter(q=>q.session===s&&q.theme===t)}
-function tf(s){return[...new Set(Q.filter(q=>q.session===s).map(q=>q.theme))]}
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function goHome(){stopTimer();tSess=null;curS=curT=lastType=null;show('s1');uh()}
-function selSession(s){curS=s;curT=lastType=null;startTimer(s);buildGrid(s);document.getElementById('s2sub').textContent='Select the table or sub-theme for the '+s+' session.';show('s2');uh()}
+var SK='wee_mp_drawn';
+var TS=2700;
+var TM={
+  'AGREE / DISAGREE':    {c:'AD',l:'Agree / Disagree',    e:'&#9878;&#65039;'},
+  'DIRECT QUESTION':     {c:'DQ',l:'Direct Question',     e:'&#128172;'},
+  'INWARD QUESTION':     {c:'IQ',l:'Inward Question',     e:'&#129488;'},
+  'FOR GATES FOUNDATION':{c:'GF',l:'For Gates Foundation',e:'&#128309;'},
+  'WILDCARD':            {c:'WC',l:'Wildcard',            e:'&#127183;'}
+};
+var THM={
+  'Agri Value Chains & Market Linkage':                    {i:'&#127806;',d:'Market linkage, FPOs, buyer relationships'},
+  'Financial Inclusion & Working Capital':                 {i:'&#128179;',d:'Credit design, NBFCs, CLF lending'},
+  'Government Partnership & Institutional Accountability': {i:'&#127963;&#65039;',d:'MPSRLM, accountability, Viksit MP'},
+  'Tribal Belt & Excluded Communities':                    {i:'&#127794;',d:'Tribal contexts, PESA, exclusion'},
+  "What Didn't Work (Full Group)":                         {i:'&#127060;',d:'General pool \u2014 draw at random'},
+  'Income, Impact & The WEE Question':                     {i:'&#128202;',d:'Income measurement, evidence, impact'},
+  'Monitoring, Learning & Evaluation':                     {i:'&#128269;',d:'MLE frameworks, data quality, learning'},
+  'Viksit MP 2047 \u2014 Sector Intelligence':             {i:'&#128506;&#65039;',d:'State plans, sector opportunities, ground intelligence'},
+  "Durability \u2014 What Didn't Last":                    {i:'&#9203;',d:'Exit, sustainability, what survived'}
+};
+
+var curS=null,curT=null,lastType=null;
+var tLeft=TS,tPaused=false,tInt=null;
+
+function gd(){try{return JSON.parse(sessionStorage.getItem(SK)||'{}')}catch(e){return{}}}
+function sd(d){try{sessionStorage.setItem(SK,JSON.stringify(d))}catch(e){}}
+function md(s,t,i){var d=gd(),k=s+'||'+t;if(!d[k])d[k]=[];if(d[k].indexOf(i)<0)d[k].push(i);sd(d)}
+function gdf(s,t){return gd()[s+'||'+t]||[]}
+function qf(s,t){return Q.filter(function(q){return q.session===s&&q.theme===t})}
+function tf(s){var seen={};return Q.filter(function(q){return q.session===s}).map(function(q){return q.theme}).filter(function(t){return seen[t]?false:(seen[t]=true)})}
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goHome(){stopTimer();curS=curT=lastType=null;show('s1');uh()}
+
+function selSession(s){
+  curS=s;curT=lastType=null;
+  startTimer(s);
+  buildGrid(s);
+  document.getElementById('s2sub').textContent='Select the table or sub-theme for the '+s+' session.';
+  show('s2');uh();
+}
+
 function goBack(){curT=lastType=null;buildGrid(curS);show('s2');uh()}
-function selTheme(t){curT=t;lastType=null;const qs=qf(curS,t),dr=gdf(curS,t);document.getElementById('dlbl').textContent=curS.toUpperCase();document.getElementById('dtitle').textContent=t;document.getElementById('dsub').textContent=qs.length+' questions in this theme. Won\u2019t repeat in this session.';document.getElementById('backlbl').textContent=curS+' themes';document.getElementById('qa').innerHTML='';const b=document.getElementById('dbtn');b.disabled=dr.length>=qs.length;b.innerHTML='&#127060; Draw a question';b.style.display='inline-flex';show('s3');uh();up()}
-function draw(){const qs=qf(curS,curT),di=gdf(curS,curT),pool=qs.map((q,i)=>({q,i})).filter(({i})=>!di.includes(i));if(!pool.length){allDone();return}let cands=pool;if(lastType&&pool.length>1){const diff=pool.filter(({q})=>q.card_type!==lastType);if(diff.length)cands=diff}const pk=cands[Math.floor(Math.random()*cands.length)];lastType=pk.q.card_type;md(curS,curT,pk.i);rq(pk.q,pool.length-1);up();uh()}
-function rq(q,rem){const m=TM[q.card_type]||{c:'DQ',l:q.card_type,e:'?'};document.getElementById('qa').innerHTML=`<div class="qcard t${m.c}"><div class="badge b${m.c}">${m.e} ${m.l}</div><div class="qtext">${esc(q.question)}</div><div class="qfoot"><span class="qrem"><strong>${rem}</strong> question${rem!==1?'s':''} remaining in this theme</span></div></div>`;const b=document.getElementById('dbtn');b.disabled=rem===0;b.innerHTML=rem===0?'&#10003; All drawn':'&#127060; Draw another'}
-function allDone(){document.getElementById('qa').innerHTML='<div class="done"><div class="done-icon">&#127881;</div><h2>All questions drawn!</h2><p>Every question in this theme has been used.</p><button class="dbtn" onclick="goBack()" style="margin:0 auto">&#8592; Choose another theme</button></div>';document.getElementById('dbtn').style.display='none'}
-function buildGrid(s){const g=document.getElementById('tgrid');g.innerHTML='';tf(s).forEach(t=>{const qs=qf(s,t),rem=qs.length-gdf(s,t).length,m=THM[t]||{i:'&#128204;',d:''},c=document.createElement('div');c.className='ocard'+(rem===0?' xhausted':'');c.innerHTML=`<div style="display:flex;align-items:flex-start;gap:14px"><div class="oicon" style="flex-shrink:0">${m.i}</div><div style="flex:1"><div class="otitle">${t}</div><div class="odesc">${m.d}</div><div class="ocnt">${rem} of ${qs.length} remaining</div></div></div>`;if(rem>0)c.onclick=()=>selTheme(t);g.appendChild(c)})}
-function up(){if(!curT)return;const tot=qf(curS,curT).length,dr=gdf(curS,curT).length,w=document.getElementById('pwrap');w.style.display=dr>0?'block':'none';document.getElementById('pfill').style.width=(dr/tot*100)+'%'}
-function uh(){const dr=gd(),tot=Object.values(dr).reduce((s,a)=>s+a.length,0),p=document.getElementById('cpill'),r=document.getElementById('rbtn');p.textContent=tot+' drawn';p.style.display=tot>0?'inline-block':'none';r.style.display=tot>0?'inline-block':'none'}
-function resetSession(){if(!confirm('Reset all drawn questions for this session?'))return;sessionStorage.removeItem(SK);stopTimer();tSess=null;lastType=null;goHome()}
-function startTimer(s){stopTimer();tSess=s;tLeft=TS;tPaused=false;document.getElementById('timer').style.display='flex';rt();tInt=setInterval(tick,1000)}
-function stopTimer(){if(tInt){clearInterval(tInt);tInt=null}document.getElementById('timer').style.display='none'}
-function tick(){if(tPaused)return;if(tLeft>0)tLeft--;rt();if(tLeft===0)clearInterval(tInt)}
-function rt(){const m=Math.floor(tLeft/60),s=tLeft%60,d=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'),td=document.getElementById('tdisp'),tw=document.getElementById('timer'),th=document.getElementById('thint');td.textContent=tPaused?d+' ⏸':d;th.textContent=tPaused?'paused — tap to resume':'tap to pause';tw.classList.remove('warn','urg');if(tLeft===0){tw.classList.add('urg');td.textContent='00:00 ⏰'}else if(tLeft<=300)tw.classList.add('urg');else if(tLeft<=600)tw.classList.add('warn')}
-function togglePause(){tPaused=!tPaused;rt()}
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
-uh();
 
+function selTheme(t){
+  curT=t;lastType=null;
+  var qs=qf(curS,t),dr=gdf(curS,t);
+  document.getElementById('dlbl').textContent=curS.toUpperCase();
+  document.getElementById('dtitle').textContent=t;
+  document.getElementById('dsub').textContent=qs.length+' questions in this theme. Won\u2019t repeat in this session.';
+  document.getElementById('blbl').textContent=curS+' themes';
+  document.getElementById('qa').innerHTML='';
+  var b=document.getElementById('dbtn');
+  b.style.display='inline-flex';
+  b.disabled=dr.length>=qs.length;
+  b.textContent=dr.length>=qs.length?'\u2713 All drawn':'&#127060; Draw a question';
+  b.innerHTML=dr.length>=qs.length?'\u2713 All drawn':'&#127060; Draw a question';
+  show('s3');uh();up();
+}
+
+function draw(){
+  var qs=qf(curS,curT),di=gdf(curS,curT);
+  var pool=qs.map(function(q,i){return{q:q,i:i}}).filter(function(x){return di.indexOf(x.i)<0});
+  if(!pool.length){allDone();return}
+  var cands=pool;
+  if(lastType&&pool.length>1){
+    var diff=pool.filter(function(x){return x.q.card_type!==lastType});
+    if(diff.length)cands=diff;
+  }
+  var pk=cands[Math.floor(Math.random()*cands.length)];
+  lastType=pk.q.card_type;
+  md(curS,curT,pk.i);
+  rq(pk.q,pool.length-1);
+  up();uh();
+}
+
+function esc(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function rq(q,rem){
+  var m=TM[q.card_type]||{c:'DQ',l:q.card_type,e:'?'};
+  var remStr='<strong>'+rem+'</strong> question'+(rem!==1?'s':'')+' remaining in this theme';
+  document.getElementById('qa').innerHTML=
+    '<div class="qcard t'+m.c+'">'+
+      '<div class="badge b'+m.c+'">'+m.e+' '+m.l+'</div>'+
+      '<div class="qtext">'+esc(q.question)+'</div>'+
+      '<div class="qfoot"><span class="qrem">'+remStr+'</span></div>'+
+    '</div>'+
+    '<div class="cardnav">'+
+      '<button class="nbtn" id="chb">\u2190 Home</button>'+
+      '<button class="nbtn" id="cbb">\u2190 Change theme</button>'+
+    '</div>';
+  document.getElementById('chb').addEventListener('click',goHome);
+  document.getElementById('cbb').addEventListener('click',goBack);
+  var b=document.getElementById('dbtn');
+  b.disabled=rem===0;
+  b.innerHTML=rem===0?'\u2713 All drawn':'&#127060; Draw another';
+}
+
+function allDone(){
+  document.getElementById('qa').innerHTML=
+    '<div class="done">'+
+      '<div class="done-icon">&#127881;</div>'+
+      '<h2>All questions drawn!</h2>'+
+      '<p>Every question in this theme has been used.</p>'+
+      '<div class="cardnav">'+
+        '<button class="nbtn" id="dhb">\u2190 Home</button>'+
+        '<button class="nbtn" id="dbb">\u2190 Change theme</button>'+
+      '</div>'+
+    '</div>';
+  document.getElementById('dhb').addEventListener('click',goHome);
+  document.getElementById('dbb').addEventListener('click',goBack);
+  document.getElementById('dbtn').style.display='none';
+}
+
+function buildGrid(s){
+  var g=document.getElementById('tgrid');g.innerHTML='';
+  tf(s).forEach(function(t){
+    var qs=qf(s,t),rem=qs.length-gdf(s,t).length,m=THM[t]||{i:'&#128204;',d:''};
+    var c=document.createElement('div');
+    c.className='ocard'+(rem===0?' xhausted':'');
+    c.innerHTML='<div style="display:flex;align-items:flex-start;gap:14px">'+
+      '<div class="oicon" style="flex-shrink:0">'+m.i+'</div>'+
+      '<div style="flex:1">'+
+        '<div class="otitle">'+t+'</div>'+
+        '<div class="odesc">'+m.d+'</div>'+
+        '<div class="ocnt">'+rem+' of '+qs.length+' remaining</div>'+
+      '</div></div>';
+    if(rem>0)c.addEventListener('click',(function(th){return function(){selTheme(th)}})(t));
+    g.appendChild(c);
+  });
+}
+
+function up(){
+  if(!curT)return;
+  var tot=qf(curS,curT).length,dr=gdf(curS,curT).length;
+  var w=document.getElementById('pwrap');
+  w.style.display=dr>0?'block':'none';
+  document.getElementById('pfill').style.width=(dr/tot*100)+'%';
+}
+
+function uh(){
+  var dr=gd(),tot=Object.values(dr).reduce(function(s,a){return s+a.length},0);
+  var p=document.getElementById('cpill'),r=document.getElementById('rbtn');
+  p.textContent=tot+' drawn';p.style.display=tot>0?'inline-block':'none';
+  r.style.display=tot>0?'inline-block':'none';
+}
+
+function resetSession(){
+  if(!confirm('Reset all drawn questions and the timer?'))return;
+  try{sessionStorage.removeItem(SK)}catch(e){}
+  stopTimer();curS=curT=lastType=null;goHome();
+}
+
+function startTimer(s){
+  stopTimer();tLeft=TS;tPaused=false;
+  document.getElementById('timer').style.display='flex';
+  rt();tInt=setInterval(tick,1000);
+}
+
+function stopTimer(){
+  if(tInt){clearInterval(tInt);tInt=null}
+  document.getElementById('timer').style.display='none';
+}
+
+function tick(){
+  if(tPaused)return;
+  if(tLeft>0)tLeft--;
+  rt();
+  if(tLeft===0){clearInterval(tInt);tInt=null}
+}
+
+function rt(){
+  var m=Math.floor(tLeft/60),s=tLeft%60;
+  var d=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  var td=document.getElementById('tdisp'),tw=document.getElementById('timer'),th=document.getElementById('thint');
+  td.textContent=tPaused?d+' \u23F8':d;
+  th.textContent=tPaused?'paused \u2014 tap to resume':'tap to pause';
+  tw.classList.remove('warn','urg');
+  if(tLeft===0){tw.classList.add('urg');td.textContent='00:00 \u23F0';}
+  else if(tLeft<=300)tw.classList.add('urg');
+  else if(tLeft<=600)tw.classList.add('warn');
+}
+
+function togglePause(){tPaused=!tPaused;rt()}
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('logoBtn').addEventListener('click',goHome);
+  document.getElementById('btnRT').addEventListener('click',function(){selSession('Roundtable')});
+  document.getElementById('btnWDW').addEventListener('click',function(){selSession("What Didn't Work")});
+  document.getElementById('h2').addEventListener('click',goHome);
+  document.getElementById('h3').addEventListener('click',goHome);
+  document.getElementById('b3').addEventListener('click',goBack);
+  document.getElementById('dbtn').addEventListener('click',draw);
+  document.getElementById('rbtn').addEventListener('click',resetSession);
+  document.getElementById('timer').addEventListener('click',togglePause);
+  uh();
+});
+
+})();
 </script>
 </body>
 </html>
