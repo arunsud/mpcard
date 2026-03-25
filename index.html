@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEE MP Partners Forum — Card Draw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#1A6B6B;--teal-dark:#0f4040;--teal-light:#e8f4f4;--amber:#B85C00;--amber-light:#fff3e0;--ink:#1a1a1a;--muted:#6b6b6b;--paper:#faf8f5;--white:#ffffff;--shadow:0 8px 40px rgba(26,107,107,.13),0 2px 8px rgba(0,0,0,.06);--shadow-h:0 20px 60px rgba(26,107,107,.2),0 4px 16px rgba(0,0,0,.08);--r:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+header{padding:16px 40px;border-bottom:1px solid rgba(26,107,107,.12);display:flex;align-items:center;gap:16px;background:var(--white);position:sticky;top:0;z-index:100}
+.hmark{width:36px;height:36px;background:var(--teal);border-radius:8px;flex-shrink:0;display:grid;place-items:center;cursor:pointer;transition:background .15s}
+.hmark:hover{background:var(--teal-dark)}
+.hmark svg{width:20px;height:20px;fill:white}
+.htxt h1{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--teal-dark);line-height:1.2}
+.htxt p{font-size:.7rem;color:var(--muted);font-weight:300;margin-top:2px}
+.hright{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+/* Timer */
+.timer{display:none;align-items:center;gap:7px;background:var(--teal-light);border:1.5px solid rgba(26,107,107,.2);border-radius:24px;padding:6px 14px;cursor:pointer;user-select:none;transition:background .2s,border-color .2s}
+.timer:hover{background:#d0eaea}
+.timer.warn{background:#fff3e0;border-color:rgba(184,92,0,.4)}
+.timer.urg{background:#ffeaea;border-color:rgba(180,30,30,.4);animation:tp 1.2s infinite}
+@keyframes tp{0%,100%{opacity:1}50%{opacity:.6}}
+.ticon{font-size:.88rem}
+.tdisp{font-size:.88rem;font-weight:500;font-variant-numeric:tabular-nums;color:var(--teal);min-width:46px}
+.timer.warn .tdisp{color:var(--amber)}
+.timer.urg .tdisp{color:#b41e1e}
+.thint{font-size:.63rem;color:var(--muted)}
+.cpill{background:var(--teal-light);color:var(--teal);font-size:.72rem;font-weight:500;padding:5px 12px;border-radius:20px;display:none}
+.rbtn{background:none;border:1.5px solid rgba(26,107,107,.25);color:var(--teal);font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;display:none}
+.rbtn:hover{background:var(--teal-light);border-color:var(--teal)}
+/* Main */
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px 64px}
+.screen{display:none;width:100%;max-width:740px}
+.screen.active{display:block;animation:fu .3s ease}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.slabel{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.8vw,2.1rem);font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:8px}
+.ssub{font-size:.88rem;color:var(--muted);font-weight:300;margin-bottom:32px;line-height:1.55}
+/* Nav buttons — prominent */
+.navrow{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.nbtn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .18s ease;border:2px solid transparent}
+.nhome{background:var(--teal);color:#fff;box-shadow:0 3px 12px rgba(26,107,107,.25)}
+.nhome:hover{background:var(--teal-dark);box-shadow:0 6px 20px rgba(26,107,107,.35);transform:translateY(-1px)}
+.nback{background:var(--white);border-color:rgba(26,107,107,.25);color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.nback:hover{background:var(--teal-light);border-color:var(--teal);box-shadow:0 4px 14px rgba(26,107,107,.12);transform:translateY(-1px)}
+/* Option cards */
+.ogrid{display:grid;gap:16px}
+.o2{grid-template-columns:1fr 1fr}
+.o1{grid-template-columns:1fr}
+@media(max-width:540px){.o2{grid-template-columns:1fr}}
+.ocard{background:var(--white);border:2px solid transparent;border-radius:var(--r);padding:22px 26px;cursor:pointer;transition:all .2s ease;box-shadow:0 2px 12px rgba(0,0,0,.06);text-align:left}
+.ocard:hover{border-color:var(--teal);box-shadow:var(--shadow-h);transform:translateY(-2px)}
+.ocard.xhausted{opacity:.4;pointer-events:none}
+.oicon{width:40px;height:40px;border-radius:10px;background:var(--teal-light);display:grid;place-items:center;margin-bottom:12px;font-size:1.1rem}
+.otitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+.odesc{font-size:.79rem;color:var(--muted);line-height:1.5;font-weight:300}
+.ocnt{margin-top:10px;font-size:.71rem;font-weight:500;color:var(--teal);background:var(--teal-light);display:inline-block;padding:2px 8px;border-radius:10px}
+/* Draw */
+.darea{text-align:center}
+.dbtn{background:var(--teal);color:white;font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:500;padding:18px 48px;border:none;border-radius:50px;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 20px rgba(26,107,107,.3);display:inline-flex;align-items:center;gap:10px;margin-bottom:36px}
+.dbtn:hover{background:var(--teal-dark);box-shadow:0 8px 28px rgba(26,107,107,.4);transform:translateY(-1px)}
+.dbtn:active{transform:translateY(0)}
+.dbtn:disabled{background:#b0c4c4;box-shadow:none;cursor:not-allowed;transform:none}
+/* Progress */
+.pwrap{height:4px;background:rgba(26,107,107,.1);border-radius:2px;margin-bottom:32px;overflow:hidden;display:none}
+.pfill{height:100%;background:var(--teal);border-radius:2px;transition:width .4s ease}
+/* Question card */
+.qcard{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:36px 40px;text-align:left;animation:cr .38s cubic-bezier(.16,1,.3,1);border-top:4px solid var(--teal)}
+.qcard.tAD{border-top-color:#8B1A1A}.qcard.tDQ{border-top-color:var(--teal)}.qcard.tIQ{border-top-color:#4A2C7A}.qcard.tGF{border-top-color:#2D3F50}.qcard.tWC{border-top-color:var(--amber)}
+@keyframes cr{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.67rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:18px}
+.bAD{background:#fff0f0;color:#8B1A1A}.bDQ{background:var(--teal-light);color:var(--teal)}.bIQ{background:#f3eef9;color:#4A2C7A}.bGF{background:#eef2f5;color:#2D3F50}.bWC{background:var(--amber-light);color:var(--amber)}
+.qtext{font-family:'Playfair Display',serif;font-size:clamp(1.05rem,2.4vw,1.3rem);line-height:1.65;color:var(--ink)}
+.qfoot{margin-top:22px;padding-top:18px;border-top:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.qrem{font-size:.74rem;color:var(--muted)}.qrem strong{color:var(--teal)}
+/* All done */
+.done{text-align:center;padding:56px 20px}
+.done-icon{font-size:2.8rem;margin-bottom:14px}
+.done h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:8px}
+.done p{color:var(--muted);font-size:.88rem;margin-bottom:28px}
+footer{text-align:center;padding:18px;font-size:.7rem;color:#bbb;border-top:1px solid rgba(0,0,0,.05)}
+@media(max-width:600px){header{padding:14px 18px}main{padding:28px 14px 48px}.qcard{padding:24px 20px}.nbtn{padding:12px 18px;font-size:.88rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hmark" onclick="goHome()" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+  </div>
+  <div class="htxt">
+    <h1>WEE MP Partners&rsquo; Forum</h1>
+    <p>Card Draw Tool &mdash; April 2, 2026 &middot; Indore</p>
+  </div>
+  <div class="hright">
+    <span class="cpill" id="cpill"></span>
+    <div class="timer" id="timer" onclick="togglePause()" title="Tap to pause / resume">
+      <span class="ticon">&#9201;</span>
+      <span class="tdisp" id="tdisp">45:00</span>
+      <span class="thint" id="thint">tap to pause</span>
+    </div>
+    <button class="rbtn" id="rbtn" onclick="resetSession()">&#8635; Reset</button>
+  </div>
+</header>
+<main>
+  <!-- Session -->
+  <div class="screen active" id="s1">
+    <div class="slabel">Step 1 of 3</div>
+    <h2 class="stitle">Which session are you drawing for?</h2>
+    <p class="ssub">Questions are drawn randomly without repeating in this browser session. A 45-minute countdown starts when you select a session and resets if you switch.</p>
+    <div class="ogrid o2">
+      <div class="ocard" onclick="selSession('Roundtable')">
+        <div class="oicon">&#128309;</div>
+        <div class="otitle">Roundtable</div>
+        <div class="odesc">Thematic discussions on scalability and replicability</div>
+        <div class="ocnt">4 themes &middot; 89 questions</div>
+      </div>
+      <div class="ocard" onclick="selSession('What Didn\'t Work')">
+        <div class="oicon">&#128992;</div>
+        <div class="otitle">What Didn&rsquo;t Work</div>
+        <div class="odesc">Full-group reflection on failure, learning, and honest reckoning</div>
+        <div class="ocnt">5 themes &middot; 41 questions</div>
+      </div>
+    </div>
+  </div>
+  <!-- Theme -->
+  <div class="screen" id="s2">
+    <div class="navrow">
+      <button class="nbtn nhome" onclick="goHome()">&#127968; Home</button>
+    </div>
+    <div class="slabel">Step 2 of 3</div>
+    <h2 class="stitle">Choose a theme</h2>
+    <p class="ssub" id="s2sub"></p>
+    <div class="ogrid o1" id="tgrid"></div>
+  </div>
+  <!-- Draw -->
+  <div class="screen" id="s3">
+    <div class="navrow">
+      <button class="nbtn nhome" onclick="goHome()">&#127968; Home</button>
+      <button class="nbtn nback" id="backbtn" onclick="goBack()">&#8592; <span id="backlbl">Themes</span></button>
+    </div>
+    <div class="darea">
+      <div class="slabel" id="dlbl"></div>
+      <h2 class="stitle" id="dtitle"></h2>
+      <p class="ssub" id="dsub"></p>
+      <div class="pwrap" id="pwrap"><div class="pfill" id="pfill"></div></div>
+      <button class="dbtn" id="dbtn" onclick="draw()">&#127060; Draw a question</button>
+      <div id="qa"></div>
+    </div>
+  </div>
+</main>
+<footer>WEE State Partners&rsquo; Forum &mdash; Madhya Pradesh &middot; Gates Foundation &amp; TQH Consulting &middot; April 2026</footer>
+<script>
+
+const Q=[];
+const SK='wee_mp_drawn';
+const TS=2700;
+const TM={'AGREE / DISAGREE':{c:'AD',l:'Agree / Disagree',e:'\u2696\uFE0F'},'DIRECT QUESTION':{c:'DQ',l:'Direct Question',e:'\uD83D\uDCAC'},'INWARD QUESTION':{c:'IQ',l:'Inward Question',e:'\uD83E\udDD0'},'FOR GATES FOUNDATION':{c:'GF',l:'For Gates Foundation',e:'\uD83D\uDD35'},'WILDCARD':{c:'WC',l:'Wildcard',e:'\uD83C\uDCCF'}};
+const THM={'Agri Value Chains & Market Linkage':{i:'\uD83C\uDF3E',d:'Market linkage, FPOs, buyer relationships'},'Financial Inclusion & Working Capital':{i:'\uD83D\uDCB3',d:'Credit design, NBFCs, CLF lending'},'Government Partnership & Institutional Accountability':{i:'\uD83C\uDFDB\uFE0F',d:'MPSRLM, accountability, Viksit MP'},'Tribal Belt & Excluded Communities':{i:'\uD83C\uDF32',d:'Tribal contexts, PESA, exclusion'},"What Didn't Work (Full Group)":{i:'\uD83C\uDCCF',d:'General pool — draw at random'},'Income, Impact & The WEE Question':{i:'\uD83D\uDCCA',d:'Income measurement, evidence, impact'},'Monitoring, Learning & Evaluation':{i:'\uD83D\uDD0D',d:'MLE frameworks, data quality, learning'},'Viksit MP 2047 \u2014 Sector Intelligence':{i:'\uD83D\uDDFA\uFE0F',d:'State plans, sector opportunities, ground intelligence'},"Durability \u2014 What Didn't Last":{i:'\u23F3',d:'Exit, sustainability, what survived'}};
+let curS=null,curT=null,lastType=null,tLeft=TS,tPaused=false,tInt=null,tSess=null;
+function gd(){try{return JSON.parse(sessionStorage.getItem(SK)||'{}')};catch{return{}}}
+function sd(d){sessionStorage.setItem(SK,JSON.stringify(d))}
+function md(s,t,i){const d=gd(),k=s+'||'+t;if(!d[k])d[k]=[];if(!d[k].includes(i))d[k].push(i);sd(d)}
+function gdf(s,t){return(gd()[s+'||'+t])||[]}
+function qf(s,t){return Q.filter(q=>q.session===s&&q.theme===t)}
+function tf(s){return[...new Set(Q.filter(q=>q.session===s).map(q=>q.theme))]}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function goHome(){stopTimer();tSess=null;curS=curT=lastType=null;show('s1');uh()}
+function selSession(s){curS=s;curT=lastType=null;startTimer(s);buildGrid(s);document.getElementById('s2sub').textContent='Select the table or sub-theme for the '+s+' session.';show('s2');uh()}
+function goBack(){curT=lastType=null;buildGrid(curS);show('s2');uh()}
+function selTheme(t){curT=t;lastType=null;const qs=qf(curS,t),dr=gdf(curS,t);document.getElementById('dlbl').textContent=curS.toUpperCase();document.getElementById('dtitle').textContent=t;document.getElementById('dsub').textContent=qs.length+' questions in this theme. Won\u2019t repeat in this session.';document.getElementById('backlbl').textContent=curS+' themes';document.getElementById('qa').innerHTML='';const b=document.getElementById('dbtn');b.disabled=dr.length>=qs.length;b.innerHTML='&#127060; Draw a question';b.style.display='inline-flex';show('s3');uh();up()}
+function draw(){const qs=qf(curS,curT),di=gdf(curS,curT),pool=qs.map((q,i)=>({q,i})).filter(({i})=>!di.includes(i));if(!pool.length){allDone();return}let cands=pool;if(lastType&&pool.length>1){const diff=pool.filter(({q})=>q.card_type!==lastType);if(diff.length)cands=diff}const pk=cands[Math.floor(Math.random()*cands.length)];lastType=pk.q.card_type;md(curS,curT,pk.i);rq(pk.q,pool.length-1);up();uh()}
+function rq(q,rem){const m=TM[q.card_type]||{c:'DQ',l:q.card_type,e:'?'};document.getElementById('qa').innerHTML=`<div class="qcard t${m.c}"><div class="badge b${m.c}">${m.e} ${m.l}</div><div class="qtext">${esc(q.question)}</div><div class="qfoot"><span class="qrem"><strong>${rem}</strong> question${rem!==1?'s':''} remaining in this theme</span></div></div>`;const b=document.getElementById('dbtn');b.disabled=rem===0;b.innerHTML=rem===0?'&#10003; All drawn':'&#127060; Draw another'}
+function allDone(){document.getElementById('qa').innerHTML='<div class="done"><div class="done-icon">&#127881;</div><h2>All questions drawn!</h2><p>Every question in this theme has been used.</p><button class="dbtn" onclick="goBack()" style="margin:0 auto">&#8592; Choose another theme</button></div>';document.getElementById('dbtn').style.display='none'}
+function buildGrid(s){const g=document.getElementById('tgrid');g.innerHTML='';tf(s).forEach(t=>{const qs=qf(s,t),rem=qs.length-gdf(s,t).length,m=THM[t]||{i:'&#128204;',d:''},c=document.createElement('div');c.className='ocard'+(rem===0?' xhausted':'');c.innerHTML=`<div style="display:flex;align-items:flex-start;gap:14px"><div class="oicon" style="flex-shrink:0">${m.i}</div><div style="flex:1"><div class="otitle">${t}</div><div class="odesc">${m.d}</div><div class="ocnt">${rem} of ${qs.length} remaining</div></div></div>`;if(rem>0)c.onclick=()=>selTheme(t);g.appendChild(c)})}
+function up(){if(!curT)return;const tot=qf(curS,curT).length,dr=gdf(curS,curT).length,w=document.getElementById('pwrap');w.style.display=dr>0?'block':'none';document.getElementById('pfill').style.width=(dr/tot*100)+'%'}
+function uh(){const dr=gd(),tot=Object.values(dr).reduce((s,a)=>s+a.length,0),p=document.getElementById('cpill'),r=document.getElementById('rbtn');p.textContent=tot+' drawn';p.style.display=tot>0?'inline-block':'none';r.style.display=tot>0?'inline-block':'none'}
+function resetSession(){if(!confirm('Reset all drawn questions for this session?'))return;sessionStorage.removeItem(SK);stopTimer();tSess=null;lastType=null;goHome()}
+function startTimer(s){stopTimer();tSess=s;tLeft=TS;tPaused=false;document.getElementById('timer').style.display='flex';rt();tInt=setInterval(tick,1000)}
+function stopTimer(){if(tInt){clearInterval(tInt);tInt=null}document.getElementById('timer').style.display='none'}
+function tick(){if(tPaused)return;if(tLeft>0)tLeft--;rt();if(tLeft===0)clearInterval(tInt)}
+function rt(){const m=Math.floor(tLeft/60),s=tLeft%60,d=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'),td=document.getElementById('tdisp'),tw=document.getElementById('timer'),th=document.getElementById('thint');td.textContent=tPaused?d+' ⏸':d;th.textContent=tPaused?'paused — tap to resume':'tap to pause';tw.classList.remove('warn','urg');if(tLeft===0){tw.classList.add('urg');td.textContent='00:00 ⏰'}else if(tLeft<=300)tw.classList.add('urg');else if(tLeft<=600)tw.classList.add('warn')}
+function togglePause(){tPaused=!tPaused;rt()}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+uh();
+
+</script>
+</body>
+</html>
